@@ -34,8 +34,8 @@ li a {
 
 /* Change the link color on hover */
 li a:hover {
-    background-color: #00cc00;
-    color: white;
+    background-color: #ffffff;
+    color: black;
 }
 .active {
     background-color: #4CAF50;
@@ -58,7 +58,7 @@ ul {
     margin: 0;
     padding: 0;
     width: 180px;
-    background-color: #f1f1f1;
+    background-color: #0000ff;
     height: 100%; /* Full height */
     position: fixed; /* Make it stick, even on scroll */
     overflow: auto; /* Enable scrolling if the sidenav has too much content */
