@@ -12,9 +12,12 @@ float d =0;
 float e =0;
 float f =0;
 float g =0;
+float blood = 10;
+
+int shoot = 450;
 
 //bouncing ball variables
-float ballX = 100;
+float ballX = 20;
 float ballY = 0;
 float h = 50;
 float speedY = 2;
@@ -23,7 +26,18 @@ float speedY = 2;
 void draw(){
   background(0,0,255);
   noStroke();
+  
+     //sun
+ noStroke();
+ fill(#FAFF08);
+ ellipse(250,470,600,600);
+ 
+ stroke(0);
+ strokeWeight(5);
+  fill(255);
+  
   //clouds
+  noStroke();
   fill(255);
   ellipse(a,y+10,40,40);
   ellipse(a+10,y+20,40,40);
@@ -118,14 +132,8 @@ if(d > 500) {
   
   
 
-   //sun
- noStroke();
- fill(#FAFF08);
- ellipse(250,470,600,600);
- 
- stroke(0);
- strokeWeight(5);
-  fill(255);
+strokeWeight(5);
+stroke(0);
   //main box
   fill(#B22222);
  rect(100,200,300,200);
@@ -199,6 +207,31 @@ line(440,500,465,450);
 line(465,450,465,400);
 ellipse(465,370,50,50);
 line(450,425,480,425);
+
+//stickman2
+line(190,500,165,450);
+line(140,500,165,450);
+line(165,450,165,400);
+ellipse(165,370,50,50);
+line(150,425,180,425);
+
+fill(255,0,0);
+noStroke();
+ellipse(shoot,425,10,10);
+shoot = shoot - 10;
+if (shoot < 165){
+  shoot = 450;
+  blood= blood+1;
+  ellipse(165,425,30,30);
+  fill(0);
+  ellipse(155,365,10,10);
+  ellipse(175,365,10,10);
+}
+
+
+
+
+
 
 
 //noLoop();
