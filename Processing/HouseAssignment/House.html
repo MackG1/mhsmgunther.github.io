@@ -9,8 +9,7 @@
     <h1>Processing.js Test</h1>
     <p>This is my first Processing.js web-based sketch:</p>
 	<canvas data-processing-sources="House.pde"></canvas>
-	  
-	  <html><body><pre>
+<html><body><pre>
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>(){
 &nbsp;<span style="color: #006699;">size</span>(500,500); 
@@ -25,9 +24,12 @@
 <span style="color: #E2661A;">float</span> e =0;
 <span style="color: #E2661A;">float</span> f =0;
 <span style="color: #E2661A;">float</span> g =0;
+<span style="color: #E2661A;">float</span> blood = 10;
+
+<span style="color: #E2661A;">int</span> shoot = 450;
 
 <span style="color: #666666;">//bouncing&nbsp;ball&nbsp;variables</span>
-<span style="color: #E2661A;">float</span> ballX = 100;
+<span style="color: #E2661A;">float</span> ballX = 20;
 <span style="color: #E2661A;">float</span> ballY = 0;
 <span style="color: #E2661A;">float</span> h = 50;
 <span style="color: #E2661A;">float</span> speedY = 2;
@@ -36,7 +38,18 @@
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(0,0,255);
 &nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//sun</span>
+&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;<span style="color: #006699;">fill</span>(#FAFF08);
+&nbsp;<span style="color: #006699;">ellipse</span>(250,470,600,600);
+&nbsp;
+&nbsp;<span style="color: #006699;">stroke</span>(0);
+&nbsp;<span style="color: #006699;">strokeWeight</span>(5);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
+&nbsp;&nbsp;
 &nbsp;&nbsp;<span style="color: #666666;">//clouds</span>
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
 &nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
 &nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a,y+10,40,40);
 &nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+10,y+20,40,40);
@@ -131,14 +144,8 @@ a=a+2;
 &nbsp;&nbsp;
 &nbsp;&nbsp;
 
-&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//sun</span>
-&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;<span style="color: #006699;">fill</span>(#FAFF08);
-&nbsp;<span style="color: #006699;">ellipse</span>(250,470,600,600);
-&nbsp;
-&nbsp;<span style="color: #006699;">stroke</span>(0);
-&nbsp;<span style="color: #006699;">strokeWeight</span>(5);
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
+<span style="color: #006699;">strokeWeight</span>(5);
+<span style="color: #006699;">stroke</span>(0);
 &nbsp;&nbsp;<span style="color: #666666;">//main box</span>
 &nbsp;&nbsp;<span style="color: #006699;">fill</span>(#B22222);
 &nbsp;<span style="color: #006699;">rect</span>(100,200,300,200);
@@ -192,7 +199,9 @@ a=a+2;
 <span style="color: #006699;">endShape</span>();
 
 <span style="color: #666666;">//bounicing&nbsp;ball</span>
+<span style="color: #006699;">fill</span>(#FA8320);
 <span style="color: #006699;">ellipse</span>(ballX, ballY,h,h);
+<span style="color: #006699;">fill</span>(0);
 speedY&nbsp;=&nbsp;speedY&nbsp;+&nbsp;0.5;
 ballY&nbsp;=&nbsp;ballY&nbsp;+&nbsp;speedY;
 
@@ -213,13 +222,36 @@ ballY&nbsp;=&nbsp;ballY&nbsp;+&nbsp;speedY;
 <span style="color: #006699;">ellipse</span>(465,370,50,50);
 <span style="color: #006699;">line</span>(450,425,480,425);
 
+<span style="color: #666666;">//stickman2</span>
+<span style="color: #006699;">line</span>(190,500,165,450);
+<span style="color: #006699;">line</span>(140,500,165,450);
+<span style="color: #006699;">line</span>(165,450,165,400);
+<span style="color: #006699;">ellipse</span>(165,370,50,50);
+<span style="color: #006699;">line</span>(150,425,180,425);
+
+<span style="color: #006699;">fill</span>(255,0,0);
+<span style="color: #006699;">noStroke</span>();
+<span style="color: #006699;">ellipse</span>(shoot,425,10,10);
+shoot&nbsp;=&nbsp;shoot&nbsp;-&nbsp;10;
+<span style="color: #669900;">if</span> (shoot &lt; 165){
+&nbsp;&nbsp;shoot&nbsp;=&nbsp;450;
+&nbsp;&nbsp;blood=&nbsp;blood+1;
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(165,425,30,30);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(155,365,10,10);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(175,365,10,10);
+}
+
+
+
+
+
+
 
 <span style="color: #666666;">//noLoop();</span>
 }
 
 </pre></body></html>
-
-      
     
    
 	  
