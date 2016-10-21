@@ -187,7 +187,9 @@ vertex(300,400);
 endShape();
 
 //bounicing ball
+fill(#FA8320);
 ellipse(ballX, ballY,h,h);
+fill(0);
 speedY = speedY + 0.5;
 ballY = ballY + speedY;
 
@@ -215,6 +217,7 @@ line(165,450,165,400);
 ellipse(165,370,50,50);
 line(150,425,180,425);
 
+//Shooting effect
 fill(255,0,0);
 noStroke();
 ellipse(shoot,425,10,10);
@@ -228,11 +231,4 @@ if (shoot < 165){
   ellipse(175,365,10,10);
 }
 
-
-
-
-
-
-
-//noLoop();
 }
