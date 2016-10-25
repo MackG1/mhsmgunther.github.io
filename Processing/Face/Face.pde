@@ -21,11 +21,12 @@ float eyes = size*1/10;
 
 //Outline
 stroke(0);
+strokeWeight(size*0.1);
   fill(random(255));
  ellipse(positionx,positiony,0.7*size,size);  
  fill(255);
  
- 
+ strokeWeight(2);
  //mouth
  stroke(0);
  ellipse(positionx,positiony + size*0.3,size/2,size*0.2);
