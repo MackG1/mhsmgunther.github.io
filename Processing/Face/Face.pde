@@ -52,12 +52,12 @@ noFill();
  arc(positionx,positiony-(size*0.02),size,size,-PI,0);
 }
 
-//void keyPressed(){
- // if (colour == 0){
-  //  colour = #FF0808;
-  //  size = 700;
-  //} else { 
-   // colour = 0;
-    //size = 300;
-  //}
-//}
+void keyPressed(){
+  if (colour == 0){
+    colour = #FF0808;
+    size = 700;
+  } else { 
+    colour = 0;
+    size = 300;
+  }
+}
