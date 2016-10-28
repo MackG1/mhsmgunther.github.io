@@ -10,6 +10,7 @@ void setup(){
 }
 
 int eyecolor = 0;
+float size = 300;
 
 void draw(){ 
 //loat positionx = random(1000);
@@ -18,7 +19,6 @@ void draw(){
 
 float positionx = 500;
 float positiony = 400;
-float size = 300;
 
 float eyes = size*1/4;
 
@@ -74,7 +74,9 @@ noFill();
 void keyPressed(){
   if (eyecolor == 0){
     eyecolor = #FF0808;
+    size = 700;
   } else { 
     eyecolor = 0;
+    size = 300;
   }
 }
