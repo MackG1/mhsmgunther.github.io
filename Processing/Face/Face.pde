@@ -74,9 +74,9 @@ noFill();
 void keyPressed(){
   if (eyecolor == 0){
     eyecolor = #FF0808;
-    size = 700;
+    
   } else { 
     eyecolor = 0;
-    size = 300;
+    
   }
 }
