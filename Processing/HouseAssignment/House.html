@@ -1,251 +1,262 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>House Assignment</title>
-      <script type="text/javascript" src="processing.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="menubar.css">
+        <link rel="stylesheet" type="text/css" href="textalign.css">
+    	<title>House Assignment</title>
+      	<script type="text/javascript" src="processing.js"></script>
+	
+        <!--Menu Bar-->
+         <b>
+         <ul class="nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="HouseAssignment/House.html">House</a></li>
+            <li><a href="Face/Face.html">Face</a></li>
+         </ul>
+         </b>
   </head>
+	
+	
   <body>
     <h1>This is my amazing house assignment</h1>
     <p>The sky is falling!!!!!!</p>
 	<canvas data-processing-sources="House.pde"></canvas>
-<html><body><pre>
+	<pre>
+	<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>(){
+	&nbsp;<span style="color: #006699;">size</span>(500,500); 
+	&nbsp;&nbsp;
+	}
 
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>(){
-&nbsp;<span style="color: #006699;">size</span>(500,500); 
-&nbsp;&nbsp;
-}
+	<span style="color: #E2661A;">int</span> y = 40;
+	<span style="color: #E2661A;">int</span> a = 0;
+	<span style="color: #E2661A;">int</span> b =0;
+	<span style="color: #E2661A;">float</span> c =0;
+	<span style="color: #E2661A;">float</span> d =0;
+	<span style="color: #E2661A;">float</span> e =0;
+	<span style="color: #E2661A;">float</span> f =0;
+	<span style="color: #E2661A;">float</span> g =0;
+	<span style="color: #E2661A;">float</span> blood = 10;
 
-<span style="color: #E2661A;">int</span> y = 40;
-<span style="color: #E2661A;">int</span> a = 0;
-<span style="color: #E2661A;">int</span> b =0;
-<span style="color: #E2661A;">float</span> c =0;
-<span style="color: #E2661A;">float</span> d =0;
-<span style="color: #E2661A;">float</span> e =0;
-<span style="color: #E2661A;">float</span> f =0;
-<span style="color: #E2661A;">float</span> g =0;
-<span style="color: #E2661A;">float</span> blood = 10;
+	<span style="color: #E2661A;">int</span> shoot = 450;
 
-<span style="color: #E2661A;">int</span> shoot = 450;
-
-<span style="color: #666666;">//bouncing&nbsp;ball&nbsp;variables</span>
-<span style="color: #E2661A;">float</span> ballX = 20;
-<span style="color: #E2661A;">float</span> ballY = 0;
-<span style="color: #E2661A;">float</span> h = 50;
-<span style="color: #E2661A;">float</span> speedY = 2;
+	<span style="color: #666666;">//bouncing&nbsp;ball&nbsp;variables</span>
+	<span style="color: #E2661A;">float</span> ballX = 20;
+	<span style="color: #E2661A;">float</span> ballY = 0;
+	<span style="color: #E2661A;">float</span> h = 50;
+	<span style="color: #E2661A;">float</span> speedY = 2;
 
 
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){
-&nbsp;&nbsp;<span style="color: #006699;">background</span>(0,0,255);
-&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//sun</span>
-&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;<span style="color: #006699;">fill</span>(#FAFF08);
-&nbsp;<span style="color: #006699;">ellipse</span>(250,470,600,600);
-&nbsp;
-&nbsp;<span style="color: #006699;">stroke</span>(0);
-&nbsp;<span style="color: #006699;">strokeWeight</span>(5);
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #666666;">//clouds</span>
-&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+10,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+15,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+15,y-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+50,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+45,y-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+70,y+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+10,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+15,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+15,y-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+50,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+45,y-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+70,y+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,y-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,y-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,y+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+10,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+15,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+15,y-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+50,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+45,y-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+70,y+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+10,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+15,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+15,y-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+50,y+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+45,y-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+70,y+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,y+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,f+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,f+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,f-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,f+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,f-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,f+10,40,40);
-&nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,g+10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,g+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,g+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,g-10,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,g+20,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,g-5,40,40);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,g+10,40,40);
+	<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){
+	&nbsp;&nbsp;<span style="color: #006699;">background</span>(0,0,255);
+	&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//sun</span>
+	&nbsp;<span style="color: #006699;">noStroke</span>();
+	&nbsp;<span style="color: #006699;">fill</span>(#FAFF08);
+	&nbsp;<span style="color: #006699;">ellipse</span>(250,470,600,600);
+	&nbsp;
+	&nbsp;<span style="color: #006699;">stroke</span>(0);
+	&nbsp;<span style="color: #006699;">strokeWeight</span>(5);
+	&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #666666;">//clouds</span>
+	&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+	&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+10,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+15,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+15,y-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+50,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+45,y-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(a+70,y+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+10,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+15,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+15,y-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+50,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+45,y-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(b+70,y+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,y-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,y-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,y+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+10,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+15,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+15,y-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+50,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+45,y-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d+70,y+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+10,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+15,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+15,y-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+50,y+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+45,y-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(e+70,y+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,y+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,f+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,f+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,f-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,f+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,f-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,f+10,40,40);
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c,g+10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+10,g+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,g+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+15,g-10,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+50,g+20,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+45,g-5,40,40);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(c+70,g+10,40,40);
 
-<span style="color: #666666;">//cloud&nbsp;movement</span>
-a=a+2;
-<span style="color: #669900;">if</span>(a &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;b=b+3;
-&nbsp;<span style="color: #669900;">if</span>(b &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;
-&nbsp;&nbsp;c=c+0.5;
-&nbsp;&nbsp;<span style="color: #669900;">if</span>(c &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;
-&nbsp;&nbsp;d=d+2.5;
-<span style="color: #669900;">if</span>(d &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;e=e+5;
-&nbsp;<span style="color: #669900;">if</span>(e &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;e&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;
-&nbsp;&nbsp;f=f+4;
-&nbsp;&nbsp;<span style="color: #669900;">if</span>(f &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;g=g+1.5;
-&nbsp;&nbsp;<span style="color: #669900;">if</span>(g &gt; 500) {
-&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;=&nbsp;0;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;
-&nbsp;&nbsp;
-&nbsp;&nbsp;
+	<span style="color: #666666;">//cloud&nbsp;movement</span>
+	a=a+2;
+	<span style="color: #669900;">if</span>(a &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;b=b+3;
+	&nbsp;<span style="color: #669900;">if</span>(b &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;c=c+0.5;
+	&nbsp;&nbsp;<span style="color: #669900;">if</span>(c &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;d=d+2.5;
+	<span style="color: #669900;">if</span>(d &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;e=e+5;
+	&nbsp;<span style="color: #669900;">if</span>(e &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;e&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;f=f+4;
+	&nbsp;&nbsp;<span style="color: #669900;">if</span>(f &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;g=g+1.5;
+	&nbsp;&nbsp;<span style="color: #669900;">if</span>(g &gt; 500) {
+	&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;=&nbsp;0;
+	&nbsp;&nbsp;}
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;
 
-<span style="color: #006699;">strokeWeight</span>(5);
-<span style="color: #006699;">stroke</span>(0);
-&nbsp;&nbsp;<span style="color: #666666;">//main box</span>
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(#B22222);
-&nbsp;<span style="color: #006699;">rect</span>(100,200,300,200);
-&nbsp;
-&nbsp;<span style="color: #666666;">//roof</span>
-&nbsp;<span style="color: #006699;">fill</span>(#D2B48C);
-&nbsp;<span style="color: #006699;">triangle</span>(90,200,410,200,250,100);
-&nbsp;
-&nbsp;<span style="color: #666666;">//door</span>
-&nbsp;<span style="color: #006699;">fill</span>(#8B4513);
-&nbsp;<span style="color: #006699;">rect</span>(200,300,100,150);
-&nbsp;<span style="color: #006699;">line</span>(250,300,250,400);
-&nbsp;<span style="color: #006699;">fill</span>(#C0C0C0);
-&nbsp;<span style="color: #006699;">ellipse</span>(240,350,10,10);
-&nbsp;<span style="color: #006699;">ellipse</span>(260,350,10,10);
-&nbsp;
-<span style="color: #006699;">fill</span>(255);
-<span style="color: #666666;">//window&nbsp;1</span>
-<span style="color: #006699;">strokeWeight</span>(10);
-<span style="color: #006699;">rect</span>(110,210,75,75);
-<span style="color: #006699;">strokeWeight</span>(5);
-<span style="color: #006699;">line</span>(147.5,210,147.5,285);
-<span style="color: #006699;">line</span>(110,247.5,185,247.5);
+	<span style="color: #006699;">strokeWeight</span>(5);
+	<span style="color: #006699;">stroke</span>(0);
+	&nbsp;&nbsp;<span style="color: #666666;">//main box</span>
+	&nbsp;&nbsp;<span style="color: #006699;">fill</span>(#B22222);
+	&nbsp;<span style="color: #006699;">rect</span>(100,200,300,200);
+	&nbsp;
+	&nbsp;<span style="color: #666666;">//roof</span>
+	&nbsp;<span style="color: #006699;">fill</span>(#D2B48C);
+	&nbsp;<span style="color: #006699;">triangle</span>(90,200,410,200,250,100);
+	&nbsp;
+	&nbsp;<span style="color: #666666;">//door</span>
+	&nbsp;<span style="color: #006699;">fill</span>(#8B4513);
+	&nbsp;<span style="color: #006699;">rect</span>(200,300,100,150);
+	&nbsp;<span style="color: #006699;">line</span>(250,300,250,400);
+	&nbsp;<span style="color: #006699;">fill</span>(#C0C0C0);
+	&nbsp;<span style="color: #006699;">ellipse</span>(240,350,10,10);
+	&nbsp;<span style="color: #006699;">ellipse</span>(260,350,10,10);
+	&nbsp;
+	<span style="color: #006699;">fill</span>(255);
+	<span style="color: #666666;">//window&nbsp;1</span>
+	<span style="color: #006699;">strokeWeight</span>(10);
+	<span style="color: #006699;">rect</span>(110,210,75,75);
+	<span style="color: #006699;">strokeWeight</span>(5);
+	<span style="color: #006699;">line</span>(147.5,210,147.5,285);
+	<span style="color: #006699;">line</span>(110,247.5,185,247.5);
 
-<span style="color: #666666;">//window&nbsp;2</span>
-<span style="color: #006699;">strokeWeight</span>(10);
-<span style="color: #006699;">rect</span>(315,210,75,75);
-<span style="color: #006699;">strokeWeight</span>(5);
-<span style="color: #006699;">line</span>(352.5,210,352.5,285);
-<span style="color: #006699;">line</span>(315,247.5,390,247.5);
+	<span style="color: #666666;">//window&nbsp;2</span>
+	<span style="color: #006699;">strokeWeight</span>(10);
+	<span style="color: #006699;">rect</span>(315,210,75,75);
+	<span style="color: #006699;">strokeWeight</span>(5);
+	<span style="color: #006699;">line</span>(352.5,210,352.5,285);
+	<span style="color: #006699;">line</span>(315,247.5,390,247.5);
 
-<span style="color: #666666;">//window&nbsp;3</span>
-<span style="color: #006699;">ellipse</span>(250,247.5,100,75);
-<span style="color: #006699;">line</span>(250,210,250,285);
-<span style="color: #006699;">line</span>(200,247.5,300,247.5);
-&nbsp;
-&nbsp;<span style="color: #666666;">//grass</span>
-&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;<span style="color: #006699;">fill</span>(#08FF5C);
-&nbsp;<span style="color: #006699;">rect</span>(0,400,500,100);
-&nbsp;
+	<span style="color: #666666;">//window&nbsp;3</span>
+	<span style="color: #006699;">ellipse</span>(250,247.5,100,75);
+	<span style="color: #006699;">line</span>(250,210,250,285);
+	<span style="color: #006699;">line</span>(200,247.5,300,247.5);
+	&nbsp;
+	&nbsp;<span style="color: #666666;">//grass</span>
+	&nbsp;<span style="color: #006699;">noStroke</span>();
+	&nbsp;<span style="color: #006699;">fill</span>(#08FF5C);
+	&nbsp;<span style="color: #006699;">rect</span>(0,400,500,100);
+	&nbsp;
 
-<span style="color: #666666;">//cloud</span>
-<span style="color: #006699;">stroke</span>(0);
-<span style="color: #006699;">fill</span>(0);
-<span style="color: #006699;">beginShape</span>();
-<span style="color: #006699;">vertex</span>(200,400);
-<span style="color: #006699;">vertex</span>(250,500);
-<span style="color: #006699;">vertex</span>(360,500);
-<span style="color: #006699;">vertex</span>(300,400);
-<span style="color: #006699;">endShape</span>();
+	<span style="color: #666666;">//cloud</span>
+	<span style="color: #006699;">stroke</span>(0);
+	<span style="color: #006699;">fill</span>(0);
+	<span style="color: #006699;">beginShape</span>();
+	<span style="color: #006699;">vertex</span>(200,400);
+	<span style="color: #006699;">vertex</span>(250,500);
+	<span style="color: #006699;">vertex</span>(360,500);
+	<span style="color: #006699;">vertex</span>(300,400);
+	<span style="color: #006699;">endShape</span>();
 
-<span style="color: #666666;">//bounicing&nbsp;ball</span>
-<span style="color: #006699;">fill</span>(#FA8320);
-<span style="color: #006699;">ellipse</span>(ballX, ballY,h,h);
-<span style="color: #006699;">fill</span>(0);
-speedY&nbsp;=&nbsp;speedY&nbsp;+&nbsp;0.5;
-ballY&nbsp;=&nbsp;ballY&nbsp;+&nbsp;speedY;
+	<span style="color: #666666;">//bounicing&nbsp;ball</span>
+	<span style="color: #006699;">fill</span>(#FA8320);
+	<span style="color: #006699;">ellipse</span>(ballX, ballY,h,h);
+	<span style="color: #006699;">fill</span>(0);
+	speedY&nbsp;=&nbsp;speedY&nbsp;+&nbsp;0.5;
+	ballY&nbsp;=&nbsp;ballY&nbsp;+&nbsp;speedY;
 
-<span style="color: #669900;">if</span> (ballY &gt; <span style="color: #D94A7A;">height</span> - h){
-&nbsp;ballY&nbsp;=&nbsp;<span style="color: #D94A7A;">height</span> - h;
-&nbsp;speedY=&nbsp;speedY&nbsp;*&nbsp;-0.9;
-}
+	<span style="color: #669900;">if</span> (ballY &gt; <span style="color: #D94A7A;">height</span> - h){
+	&nbsp;ballY&nbsp;=&nbsp;<span style="color: #D94A7A;">height</span> - h;
+	&nbsp;speedY=&nbsp;speedY&nbsp;*&nbsp;-0.9;
+	}
 
-<span style="color: #669900;">else</span> <span style="color: #669900;">if</span>(ballY &lt;=0){
-&nbsp;&nbsp;speedY&nbsp;=&nbsp;-speedY;
-}
+	<span style="color: #669900;">else</span> <span style="color: #669900;">if</span>(ballY &lt;=0){
+	&nbsp;&nbsp;speedY&nbsp;=&nbsp;-speedY;
+	}
 
-<span style="color: #666666;">//Stickman</span>
-<span style="color: #006699;">noFill</span>();
-<span style="color: #006699;">line</span>(490,500,465,450);
-<span style="color: #006699;">line</span>(440,500,465,450);
-<span style="color: #006699;">line</span>(465,450,465,400);
-<span style="color: #006699;">ellipse</span>(465,370,50,50);
-<span style="color: #006699;">line</span>(450,425,480,425);
+	<span style="color: #666666;">//Stickman</span>
+	<span style="color: #006699;">noFill</span>();
+	<span style="color: #006699;">line</span>(490,500,465,450);
+	<span style="color: #006699;">line</span>(440,500,465,450);
+	<span style="color: #006699;">line</span>(465,450,465,400);
+	<span style="color: #006699;">ellipse</span>(465,370,50,50);
+	<span style="color: #006699;">line</span>(450,425,480,425);
 
-<span style="color: #666666;">//stickman2</span>
-<span style="color: #006699;">line</span>(190,500,165,450);
-<span style="color: #006699;">line</span>(140,500,165,450);
-<span style="color: #006699;">line</span>(165,450,165,400);
-<span style="color: #006699;">ellipse</span>(165,370,50,50);
-<span style="color: #006699;">line</span>(150,425,180,425);
+	<span style="color: #666666;">//stickman2</span>
+	<span style="color: #006699;">line</span>(190,500,165,450);
+	<span style="color: #006699;">line</span>(140,500,165,450);
+	<span style="color: #006699;">line</span>(165,450,165,400);
+	<span style="color: #006699;">ellipse</span>(165,370,50,50);
+	<span style="color: #006699;">line</span>(150,425,180,425);
 
-<span style="color: #666666;">//Shooting&nbsp;effect</span>
-<span style="color: #006699;">fill</span>(255,0,0);
-<span style="color: #006699;">noStroke</span>();
-<span style="color: #006699;">ellipse</span>(shoot,425,10,10);
-shoot&nbsp;=&nbsp;shoot&nbsp;-&nbsp;10;
-<span style="color: #669900;">if</span> (shoot &lt; 165){
-&nbsp;&nbsp;shoot&nbsp;=&nbsp;450;
-&nbsp;&nbsp;blood=&nbsp;blood+1;
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(165,425,30,30);
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(155,365,10,10);
-&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(175,365,10,10);
-}
+	<span style="color: #666666;">//Shooting&nbsp;effect</span>
+	<span style="color: #006699;">fill</span>(255,0,0);
+	<span style="color: #006699;">noStroke</span>();
+	<span style="color: #006699;">ellipse</span>(shoot,425,10,10);
+	shoot&nbsp;=&nbsp;shoot&nbsp;-&nbsp;10;
+	<span style="color: #669900;">if</span> (shoot &lt; 165){
+	&nbsp;&nbsp;shoot&nbsp;=&nbsp;450;
+	&nbsp;&nbsp;blood=&nbsp;blood+1;
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(165,425,30,30);
+	&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(155,365,10,10);
+	&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(175,365,10,10);
+	}
 
-}
+	}
 
-</pre></body></html>
+	</pre>
 
 
    
