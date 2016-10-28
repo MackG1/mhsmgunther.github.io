@@ -9,53 +9,69 @@
     <h1>Face</h1>
     <p>Moving face</p>
 	<canvas data-processing-sources="Face.pde"></canvas>
-      <pre>
-
-<span style="color: #666666;">//1</span>
-
-
-
+  <pre>
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>(){
-&nbsp;<span style="color: #006699;">size</span>(600,600); 
-&nbsp;<span style="color: #006699;">frameRate</span>(0.5);
+&nbsp;<span style="color: #006699;">size</span>(1000,800); 
+&nbsp;<span style="color: #006699;">frameRate</span>(60);
 }
 
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){ 
-&nbsp;&nbsp;<span style="color: #E2661A;">float</span> positionx = <span style="color: #006699;">random</span>(600);
-<span style="color: #E2661A;">float</span> positiony = <span style="color: #006699;">random</span>(600);
-<span style="color: #E2661A;">float</span> size = <span style="color: #006699;">random</span>(500);
-<span style="color: #E2661A;">float</span> eyes = size*1/10;
+<span style="color: #E2661A;">int</span> colour = 0;
+<span style="color: #E2661A;">float</span> size = 300;
 
-&nbsp;&nbsp;<span style="color: #006699;">background</span>(<span style="color: #006699;">random</span>(255),<span style="color: #006699;">random</span>(255),<span style="color: #006699;">random</span>(255));
-&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){ 
+<span style="color: #E2661A;">float</span> positionx = 500;
+<span style="color: #E2661A;">float</span> positiony = 400;
+<span style="color: #E2661A;">float</span> eyes = size*1/4;
+
+<span style="color: #006699;">background</span>(0,0,255);
 
 <span style="color: #666666;">//Outline</span>
 <span style="color: #006699;">stroke</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">fill</span>(<span style="color: #006699;">random</span>(255));
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony,0.7*size,size);  
-&nbsp;<span style="color: #006699;">fill</span>(255);
-&nbsp;
-&nbsp;
-&nbsp;<span style="color: #666666;">//mouth</span>
+<span style="color: #006699;">strokeWeight</span>(size*0.01);
+<span style="color: #006699;">fill</span>(255);
+<span style="color: #006699;">ellipse</span>(positionx,positiony,size,size);  
+
+<span style="color: #666666;">//mouth</span>
+<span style="color: #006699;">strokeWeight</span>(2);
+&nbsp;<span style="color: #006699;">fill</span>(colour);
 &nbsp;<span style="color: #006699;">stroke</span>(0);
 &nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony + size*0.3,size/2,size*0.2);
-&nbsp;
+
 &nbsp;<span style="color: #666666;">//eye</span>
 &nbsp;<span style="color: #006699;">stroke</span>(255);
-&nbsp;<span style="color: #006699;">fill</span>(<span style="color: #006699;">random</span>(255),<span style="color: #006699;">random</span>(255),<span style="color: #006699;">random</span>(255));
+&nbsp;<span style="color: #006699;">fill</span>(200);
 &nbsp;<span style="color: #006699;">ellipse</span>(positionx - eyes, positiony- eyes,eyes,eyes);
 &nbsp;<span style="color: #006699;">ellipse</span>(positionx + eyes, positiony- eyes, eyes,eyes);
-
+&nbsp;
+&nbsp;
+&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;<span style="color: #006699;">fill</span>(colour);
+&nbsp;<span style="color: #E2661A;">float</span> eyepositionx= <span style="color: #006699;">constrain</span>(<span style="color: #D94A7A;">mouseX</span>,positionx - size*0.07, positionx + size*0.08);
+&nbsp;<span style="color: #E2661A;">float</span> eyepositiony= <span style="color: #006699;">constrain</span>(<span style="color: #D94A7A;">mouseY</span>, positiony -size*0.07, positiony + size*0.08);
+&nbsp;<span style="color: #006699;">ellipse</span>(eyepositionx - eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
+&nbsp;<span style="color: #006699;">ellipse</span>(eyepositionx + eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
+&nbsp;
 <span style="color: #666666;">//nose</span>
 <span style="color: #006699;">stroke</span>(255);
 <span style="color: #006699;">fill</span>(0);
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony,size*0.1,size*0.2);
+&nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony,size*0.1,size*0.2); 
 &nbsp;
-&nbsp;
+&nbsp;<span style="color: #666666;">//hair</span>
+&nbsp;<span style="color: #006699;">strokeWeight</span>(size/10);
+&nbsp;<span style="color: #006699;">stroke</span>(0);
+<span style="color: #006699;">noFill</span>();
+&nbsp;<span style="color: #006699;">arc</span>(positionx,positiony-(size*0.02),size,size,-<span style="color: #718A62;">PI</span>,0);
+}
 
-&nbsp;
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>keyPressed</b></span>(){
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (colour == 0){
+&nbsp;&nbsp;&nbsp;&nbsp;colour&nbsp;=&nbsp;#FF0808;
+&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;=&nbsp;700;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> { 
+&nbsp;&nbsp;&nbsp;&nbsp;colour&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;=&nbsp;300;
+&nbsp;&nbsp;}
 }
 
 </pre>
