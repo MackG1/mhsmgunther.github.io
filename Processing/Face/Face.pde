@@ -1,9 +1,4 @@
 
-//1
-
-
-
-
 void setup(){
  size(1000,800); 
  frameRate(60);
@@ -13,38 +8,26 @@ int colour = 0;
 float size = 300;
 
 void draw(){ 
-//loat positionx = random(1000);
-//float positiony = random(800);
-//float size = random(500);
-
 float positionx = 500;
 float positiony = 400;
-
 float eyes = size*1/4;
 
-
-  background(0,0,255);
-  
-   
+background(0,0,255);
 
 //Outline
-//stroke(random(255),random(255),random(255));
 stroke(0);
 strokeWeight(size*0.01);
-  fill(255);
- ellipse(positionx,positiony,size,size);  
+fill(255);
+ellipse(positionx,positiony,size,size);  
 
- 
- strokeWeight(2);
- //mouth
-  fill(colour);
+//mouth
+strokeWeight(2);
+ fill(colour);
  stroke(0);
  ellipse(positionx,positiony + size*0.3,size/2,size*0.2);
 
- 
  //eye
  stroke(255);
- //fill(random(255),random(255),random(255));
  fill(200);
  ellipse(positionx - eyes, positiony- eyes,eyes,eyes);
  ellipse(positionx + eyes, positiony- eyes, eyes,eyes);
@@ -57,7 +40,6 @@ strokeWeight(size*0.01);
  ellipse(eyepositionx - eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
  ellipse(eyepositionx + eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
  
-
 //nose
 stroke(255);
 fill(0);
@@ -68,8 +50,6 @@ fill(0);
  stroke(0);
 noFill();
  arc(positionx,positiony-(size*0.02),size,size,-PI,0);
- 
-// ellipse(mouseX,mouseY,20,20);
 }
 
 void keyPressed(){
