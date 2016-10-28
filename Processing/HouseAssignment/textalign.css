@@ -1,4 +1,4 @@
-body {
+body,canvas {
     margin-left: 200 px;
     margin-right: 30 px;
 }
