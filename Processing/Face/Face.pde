@@ -9,6 +9,8 @@ void setup(){
  frameRate(60);
 }
 
+int eyecolor = 0;
+
 void draw(){ 
 //loat positionx = random(1000);
 //float positiony = random(800);
@@ -19,6 +21,7 @@ float positiony = 400;
 float size = 300;
 
 float eyes = size*1/4;
+
 
   background(0,0,255);
   
@@ -47,7 +50,7 @@ strokeWeight(size*0.01);
  
  
  noStroke();
- fill(0);
+ fill(eyecolor);
  float eyepositionx= constrain(mouseX,positionx - size*0.07, positionx + size*0.08);
  float eyepositiony= constrain(mouseY, positiony -size*0.07, positiony + size*0.08);
  ellipse(eyepositionx - eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
@@ -66,4 +69,12 @@ noFill();
  arc(positionx,positiony-(size*0.02),size,size,-PI,0);
  
 // ellipse(mouseX,mouseY,20,20);
+}
+
+void keyPressed(){
+  if (eyecolor == 0){
+    eyecolor = 255;
+  } else { 
+    eyecolor = 0;
+  }
 }
