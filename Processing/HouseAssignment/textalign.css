@@ -1,5 +1,5 @@
-ol, p, ul, pre {
-    margin-left: 200px;
+body {
+    margin-left: 200 px;
     margin-right: 30 px;
 }
 
@@ -9,7 +9,7 @@ h1 {
 }
 
 h3 {
-    margin-left: 200px;
-    margin-right: 30px;
+    margin-left: 200 px;
+    margin-right: 30 px;
     font-family: "Trebuchet MS";
 }
