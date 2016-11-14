@@ -9,76 +9,56 @@
 	   <a href="../Processing.html">Processing Assignments Page</a>
     <h1>Face</h1>
     <p>The face changes when you press a key on the key board</p>
-	<canvas data-processing-sources="Face.pde"></canvas>
+	<canvas data-processing-sources="thingy.pde"></canvas>
 	  
-	  <p>It is not working in browser</p>
-  <pre>
+	 <html><body><pre>
+<span style="color: #E2661A;">color</span> fill1 = <span style="color: #006699;">color</span>(255,0,0);
+<span style="color: #E2661A;">color</span> fill2 = <span style="color: #006699;">color</span>(0,255,0);
+<span style="color: #E2661A;">color</span> fill3 = <span style="color: #006699;">color</span>(0,0,255);
+<span style="color: #E2661A;">int</span> positionx = 0;
+<span style="color: #E2661A;">int</span> positiony= 50 ;
+<span style="color: #E2661A;">color</span> ball;
+<span style="color: #E2661A;">int</span> xdir = 1;
+<span style="color: #E2661A;">int</span> speed =  5;
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>(){
-&nbsp;<span style="color: #006699;">size</span>(1000,800); 
-&nbsp;<span style="color: #006699;">frameRate</span>(60);
+&nbsp;<span style="color: #006699;">size</span>(600,100);
 }
 
-<span style="color: #E2661A;">int</span> colour = 0;
-<span style="color: #E2661A;">float</span> size = 300;
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
 
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>(){ 
-<span style="color: #E2661A;">float</span> positionx = 500;
-<span style="color: #E2661A;">float</span> positiony = 400;
-<span style="color: #E2661A;">float</span> eyes = size*1/4;
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(fill1);
+&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0,0,100,100);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(fill2);
+&nbsp;&nbsp;<span style="color: #006699;">rect</span>(250,0,100,100);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(fill3);
+&nbsp;&nbsp;<span style="color: #006699;">rect</span>(500,0,100,100);
+&nbsp;&nbsp;
 
-<span style="color: #006699;">background</span>(0,0,255);
-
-<span style="color: #666666;">//Outline</span>
-<span style="color: #006699;">stroke</span>(0);
-<span style="color: #006699;">strokeWeight</span>(size*0.01);
-<span style="color: #006699;">fill</span>(255);
-<span style="color: #006699;">ellipse</span>(positionx,positiony,size,size);  
-
-<span style="color: #666666;">//mouth</span>
-<span style="color: #006699;">strokeWeight</span>(2);
-&nbsp;<span style="color: #006699;">fill</span>(colour);
-&nbsp;<span style="color: #006699;">stroke</span>(0);
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony + size*0.3,size/2,size*0.2);
-
-&nbsp;<span style="color: #666666;">//eye</span>
-&nbsp;<span style="color: #006699;">stroke</span>(255);
-&nbsp;<span style="color: #006699;">fill</span>(200);
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx - eyes, positiony- eyes,eyes,eyes);
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx + eyes, positiony- eyes, eyes,eyes);
-&nbsp;
-&nbsp;
-&nbsp;<span style="color: #006699;">noStroke</span>();
-&nbsp;<span style="color: #006699;">fill</span>(colour);
-&nbsp;<span style="color: #E2661A;">float</span> eyepositionx= <span style="color: #006699;">constrain</span>(<span style="color: #D94A7A;">mouseX</span>,positionx - size*0.07, positionx + size*0.08);
-&nbsp;<span style="color: #E2661A;">float</span> eyepositiony= <span style="color: #006699;">constrain</span>(<span style="color: #D94A7A;">mouseY</span>, positiony -size*0.07, positiony + size*0.08);
-&nbsp;<span style="color: #006699;">ellipse</span>(eyepositionx - eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
-&nbsp;<span style="color: #006699;">ellipse</span>(eyepositionx + eyes, eyepositiony- eyes,eyes*0.2,eyes*0.2);
-&nbsp;
-<span style="color: #666666;">//nose</span>
-<span style="color: #006699;">stroke</span>(255);
-<span style="color: #006699;">fill</span>(0);
-&nbsp;<span style="color: #006699;">ellipse</span>(positionx,positiony,size*0.1,size*0.2); 
-&nbsp;
-&nbsp;<span style="color: #666666;">//hair</span>
-&nbsp;<span style="color: #006699;">strokeWeight</span>(size/10);
-&nbsp;<span style="color: #006699;">stroke</span>(0);
-<span style="color: #006699;">noFill</span>();
-&nbsp;<span style="color: #006699;">arc</span>(positionx,positiony-(size*0.02),size,size,-<span style="color: #718A62;">PI</span>,0);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>keyPressed</b></span>(){
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (colour == 0){
-&nbsp;&nbsp;&nbsp;&nbsp;colour&nbsp;=&nbsp;#FF0808;
-&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;=&nbsp;700;
-&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> { 
-&nbsp;&nbsp;&nbsp;&nbsp;colour&nbsp;=&nbsp;0;
-&nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;=&nbsp;300;
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(ball);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(positionx, positiony,18,18);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx+10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill1)||<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx-10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill1) ){
+&nbsp;&nbsp;&nbsp;&nbsp;ball=&nbsp;<span style="color: #006699;">color</span>(fill1);
 &nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx+10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill2)||<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx-10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill2) ){
+&nbsp;&nbsp;&nbsp;&nbsp;ball=&nbsp;<span style="color: #006699;">color</span>(fill2);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx+10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill3)||<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(positionx-10),<span style="color: #006699;">int</span>( positiony)) == <span style="color: #006699;">color</span>(fill3) ){
+&nbsp;&nbsp;&nbsp;&nbsp;ball=&nbsp;<span style="color: #006699;">color</span>(fill3);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (positionx&gt;<span style="color: #D94A7A;">width</span> || positionx &lt;0){
+&nbsp;&nbsp;&nbsp;&nbsp;xdir&nbsp;*=-1;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;positionx&nbsp;+=xdir*speed;
+
 }
 
-</pre>
-    
-  
+</pre></body></html>
 
   </body>
 </html>
