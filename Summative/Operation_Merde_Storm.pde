@@ -1,24 +1,32 @@
 /***********GAME VARIABLES************/
 
 
-//WIN/LOSE/START
+//BOOLEANS FOR CURRENT SCREEN
 boolean lose = false;
 boolean start = true;
 boolean levelUp = false;
+boolean instructions = false;
+
+//SPECIAL POWER BOOLEAN
 boolean powerUp = true;
+
 
 
 //MATERIL VARIABLES
 PImage material;
 int numMaterials = 0;
-ArrayList<Material> materialArray;
 int materialSize = 40;
+  //MATERIAL ARRAYLIST
+  ArrayList<Material> materialArray;
+
 
 
 //GOLDEN MATERIAL
 PImage goldenMaterial;
-goldenMaterials[] goldenMaterialArray;
 int numGoldenMaterials = 0;
+  // Golden material array
+  goldenMaterials[] goldenMaterialArray;
+
 
 
 //SHOOTER VARIABLES
@@ -36,17 +44,19 @@ PImage turret;
     
 
 //ENEMIES
-int enemySize = 50;
 PImage enemy;
+int enemySize = 50;
 int numOfEnemies = 1;
 int enemiesRemaining = 1;
-Enemy[] enemyArray;
 int enemiesKilled = 0;
+Enemy[] enemyArray;
+
 
 //BACKGROUND
-color Background = color(10);
+color Background = color(int(random(255)),int(random(255)),int(random(255)));
 
 //SCORING AND LEVELS
+//SET TO STARTING NUMBERS
 int score = 0;
 int lives = 3;
 int level = 1;
@@ -54,14 +64,13 @@ int level = 1;
 
 
 
-
+int frameNum = 0;
 
 void setup()
 {
   size(1200,750);
   
   //LOAD IMAGES
-  
       material = loadImage("material.png");
       enemy = loadImage("enemytest.png");
       goldenMaterial = loadImage("goldenMaterial.png");
@@ -79,19 +88,23 @@ void setup()
 
 void draw()
 {
+  //add to the frame number
+  frameNum++;
     //START SCREEN CHECK
   
       if (start  == true)
       {
-        background(255);
-                 
-        //START SCREEN VARIABLES
+        background(Background);
+        if(frameNum% 20 == 0)
+        {
+        Background=color(int(random(255)),int(random(255)),int(random(255)));
+        }
         
+        
+        //START SCREEN VARIABLE
             int [] materialStart = new int[20];
-        
-       
-        
-        //CREATING THE START SCREEN MATERIALS
+   
+        //CREATING THE MATERIAL FOR START SCREEN
             for (int i = 0; i<20; i++)
               {
                 materialStart[i] = 60*i;
@@ -103,15 +116,15 @@ void draw()
               text("Operation Merde Storm",300,200);
           
           
-          //DRAWING MATERIALS
+          //DRAWING THE START SCREEN MATERIALS
           
               for(int  i = 0; i<20;i++)
               {
-                //MATERIALS BOUNCE
-                
+                    //MATERIALS MOVEMENT UP AND DOWN
                     float xs = random(20);
                     float x = 300;
                     x+=xs;
+                    
                     image(material,materialStart[i],x,50,50);
                     image(material,materialStart[i],x+50,50,50);
                     image(material,materialStart[i],x+100,50,50);
@@ -124,13 +137,17 @@ void draw()
             //ACTION IN mousePressed
             
                 textSize(60);
+                fill(0);
                 text("Start",500,700);
-                text("How to play",970,700);
                 fill(0,0);
                 rect(500,650,135,55);
                 
-                
+                //DRAW INSTRUCTIONS BUTTON
+                textSize(38);
+                fill(0,0);
                 rect(970,650,220,55);
+                fill(0);
+                text("How to play",970,695);
       }  
       }
 
@@ -146,7 +163,7 @@ void draw()
        text("You Lost", 450,400);
        
        
-       //RESET BUTTON
+       //DRAW RESET BUTTON
        //ACTION IN mousePressed
        
             textSize(60);
@@ -163,12 +180,12 @@ void draw()
       else if(levelUp== true)
       {
         //DISPLAY TEXT
-        background(#3CEDE9);
+        background(#1614F2);
         fill(0);
         text("You beat this level", 330,400);
        
        
-       //Reset Button
+       //DRAW Reset Button
        //Action in mousePressed
        
             textSize(60);
@@ -176,6 +193,47 @@ void draw()
             fill(0,0);
             rect(480,650,290,55);
       }
+      
+      
+      
+      
+  //INSTRUCTIONS SCREEEN CHECK
+    
+    else if(instructions==true)
+    {
+     background(#952AC4);
+     
+     //BACK BUTTON
+      textSize(60);
+      fill(0);
+      text("Back",500,700);
+      fill(0,0);
+      rect(500,650,135,55);
+      
+      //THE INSTRUCTIONS TEXT
+      textSize(60);
+      fill(0);
+      text("How to play",440,70);
+      
+      textSize(35);
+      text("Rules/Getting points",100,150);
+      textSize(30);
+      text("-Your goal is to kill all of the devils",100,200);
+      text("-A devil gets added each level",100,240);
+      text("-If you get hit with material you lose 1 life (you have 3)",100,280);
+      text("-If you catch a golden material you get a powerUp (You can only have 1)",100,320);
+      text("-If golden material is displayed on bottom you have a powerup",100,360);
+      
+      textSize(35);
+      text("Movement",100,420);
+      textSize(30);
+      text("-Use left and right arrow keys to move",100,460);
+      text("-You won't stop moving until you hit spacebar",100,500);
+      text("-Use up arrow key or spacebar to shoot",100,540);
+      text("-Use the 'a' key to use special power",100,580);
+      
+    }
+  
       
   
   
@@ -213,7 +271,7 @@ void draw()
         
         
         
-        //SCORING AREA
+        //DRAW SCORING AND INFORMATION AREA
         
             rectMode(CORNER);
             fill(255);
@@ -285,14 +343,25 @@ void draw()
              level+=1;
              numOfEnemies += 1;
            }
+           
+       //POWER UP INDICATOR
+           if(powerUp == true)
+           {
+            image(goldenMaterial,400,600,170,170); 
+           }
+           else
+           {
+             
+           }
          
          
-       //DISPLAY LEVEL
+       //DISPLAY CURRENT LEVEL
        
            fill(0);
            textSize(50);
            text(level,600,720);
            
+       //AFTER 5 KILLS DEPLOY GOLDEN MATERIAL 
            if(enemiesKilled == 5)
            {
              enemiesKilled =0;
@@ -301,12 +370,13 @@ void draw()
            }
            
             
-               //materialArray.clear();
-               shooterX += shooterXSpeed;
-                if (shooterX> width - 50||shooterX<50)
-               {
-                 shooterXSpeed = 0;
-               }
+        //UPDATE SHOOTERS LOCATION
+           shooterX += shooterXSpeed;
+        //KEEP SHOOTER ON SCREEN 
+            if (shooterX> width - 50||shooterX<50)
+           {
+             shooterXSpeed = 0;
+           }
       }
           
 
@@ -318,13 +388,15 @@ void draw()
 
 class Bullet
 {
-  
+ 
+//CLASS VARIABLES
  public boolean bulletActive;
  float bulletX,bulletY,bulletSpeed;
  
+ //GIVE THE VARIABLES A VALUE
  Bullet(int x,int y,int speed)
  {
-   bulletX = x;
+   bulletX = x-10;
    bulletY = y;
    bulletSpeed = speed;
  }
@@ -332,28 +404,28 @@ class Bullet
  void check()
  {
    //CHECK IF BULLETS HIT ENEMIE
-   
+   //CHECK IF BULLET LOCATION CROSSES THE ENEMIES LOCATION
   for(int t =0; t<materialArray.size(); t++)
   {
-  for (int i = 0; i<numOfEnemies; i++)
-  {
-    if(enemyArray[i].enemyX <= bulletX+10  &&  enemyArray[i].enemyX + 40 >= bulletX-10  &&  enemyArray[i].enemyY<= bulletY 
-    && enemyArray[i].enemyY+40>= bulletY-10 && enemyArray[i].Active == true)
+    for (int i = 0; i<numOfEnemies; i++)
     {
-      enemyArray[i].Active =false;
-      score+=10;
-      enemiesRemaining -=1;
-      enemiesKilled+=1;
+      if(enemyArray[i].enemyX <= bulletX+10  &&  enemyArray[i].enemyX + 40 >= bulletX-10  &&  enemyArray[i].enemyY<= bulletY 
+      && enemyArray[i].enemyY+40>= bulletY-10 && enemyArray[i].Active == true)
+      {
+        enemyArray[i].Active =false;
+        score+=10;
+        enemiesRemaining -=1;
+        enemiesKilled+=1;
+      }
+     }
     }
    }
-  }
- }
   void shoot()
   {
-    //SHOOT THE BULLET
     
+    //BULLET MOVEMENT
     bulletY -= bulletSpeed;
-    fill(bulletColor);
+    //DRAW THE BULLET
     image(bullet,bulletX,bulletY,20,20);
     
   }
@@ -362,9 +434,12 @@ class Bullet
 /****CLASS FOR ENEMIES****/
 
 class Enemy
-{
+{ 
+  //CLASS/ENEMY  VARIABLES
   public boolean Active;
   public float enemyX,enemyY,enemyYSpeed,enemyXSpeed;
+  
+  //GIVE THE VARIABLES A VALUE
   Enemy(int x,int y, int xs, int ys)
   {
    enemyX = x;
@@ -372,13 +447,16 @@ class Enemy
    enemyXSpeed = xs;
    enemyYSpeed = ys;
   }
+  
   void update()
   {
-    //MOVEMENT
+    //ENEMY MOVEMENT
     enemyX += enemyXSpeed;
     enemyY += enemyYSpeed;
     
-    //LEFT/RIGHT CHECK
+    //LEFT/RIGHT WALL HIT CHECK CHECK
+    //DRAW MATERIAL IF WALL IS HIT
+    //CHANGE DIRECTION IF WALL HIT
     if (enemyX > width - enemySize)
         {
          enemyXSpeed = int(random(-10,-1)); 
@@ -393,7 +471,9 @@ class Enemy
          numMaterials++;
         }
         
-      //UP/DOWN CHECK
+      //UP/DOWN WALL CHECK
+      //DRAW MATERIAL IF WALL IS HIT
+      //CHANGE DIRECTION IF WALL HIT
        if (enemyY > 300)
         {
          enemyYSpeed = int(random(-10,-1)); 
@@ -407,7 +487,7 @@ class Enemy
          materialArray.add(new Material (enemyX,enemyY,material));
          numMaterials++;
         }
-        //ENEMIES IMAGE
+        //DRAW THE ENEMY
         image(enemy,enemyX,enemyY,enemySize,enemySize);
     }
     
@@ -417,8 +497,11 @@ class Enemy
 
 class Material
 {
+  //CLASS/MATERIAL VARIABLES
  float xpos,ypos;
  public PImage image;
+ 
+ //GIVE VARIABLES A VALUE
  Material(float x, float y,PImage img)
  {
    xpos = x;
@@ -429,10 +512,10 @@ class Material
  
   void deploy()
   {
-    //MOVEMENT
+    //MATERIAL MOVEMENT
     ypos += 10;
     
-    //CHECK IF MATERIALS HAVE HIT HERO
+    //CHECK IF MATERIALS HAVE HIT THE SHOOTER
     if(get(int(xpos-1),int(ypos+materialSize+1)) == color(shooterColor)||get(int(xpos+materialSize+1),int(ypos+materialSize+1)) == color(shooterColor)){
       lives -=1;
       materialArray.clear();
@@ -440,6 +523,7 @@ class Material
       fill(255,0,0);
       rect(0,0,1200,650);
     }
+    
     //DISPLAY MATERIAL IMAGE
     image(image,xpos,ypos,materialSize,materialSize);
     
@@ -451,9 +535,10 @@ class Material
 /****CLASS FOR GOLDEN MATERIALS****/
 
 class goldenMaterials {
- 
+ //CLASS VARIABLES
   float xpos, ypos;
   
+ //GIVE VARIABLES A VALUE 
   goldenMaterials(float x, float y)
   {
     xpos = x;
@@ -470,7 +555,10 @@ class goldenMaterials {
     fill(#FFF41F);
     rect(0,0,1200,800);
    }
+   //MATERIAL MOVEMENT
    ypos+=5;
+   
+   //DISPLAY THE MATERIAL
    image(goldenMaterial,xpos,ypos,70,70); 
   }
 }
@@ -478,7 +566,7 @@ class goldenMaterials {
 
 void keyPressed()
 {     
-     //HERO MOVEMENT
+     //SHOOTER MOVEMENT/LEFT/RIGHT/STOP
      if (keyCode == LEFT && shooterX > 50)
      {
        shooterXSpeed = -10;
@@ -491,12 +579,14 @@ void keyPressed()
      else if (key ==' ')
      {
        shooterXSpeed = 0;
+       bulletsArray.add(new Bullet (shooterX,shooterY-50,20));
+       numBullets += 1;
      }
      
    
      
      
-     //HERO SHOOT
+     //SHOOTER SHOOT KEY
      if (keyCode == UP || keyCode == TAB)
      {
        bulletsArray.add(new Bullet (shooterX,shooterY-50,13));
@@ -504,7 +594,7 @@ void keyPressed()
      }
      
      
-     //HERO USE POWER UP
+     //SHOOTER POWER UP KEY
      if (key =='a' && powerUp == true)
      {
        for(int i =1; i<12;i++)
@@ -521,14 +611,32 @@ void mousePressed()
 
 {
   //START BUTTON
-  
+ 
   if (mouseY >650 && mouseY <705 && mouseX > 500 && mouseX <635&& start == true)
   {
     start =  false;
     lose =  false;
     score = 0;
-     enemyArray[0] = new Enemy(int (random(1,1200)),int(random(1,300)),10,10);
-     enemyArray[0].Active = true;
+    
+    //CREATE FIRST ENEMY AND SET TO ACTIVE
+    enemyArray[0] = new Enemy(int (random(1,1200)),int(random(1,300)),10,10);
+    enemyArray[0].Active = true;
+  }
+  
+  // INSTRUCTIONS BUTTON
+  if (mouseY >650 && mouseY <705 && mouseX > 970 && mouseX <1190 && start == true)
+  {
+   start =  false;
+   instructions = true;
+  }
+  
+     //START BUTTON
+ 
+  if (mouseY >650 && mouseY <705 && mouseX > 500 && mouseX <635&& instructions == true)
+  {    
+    start =  true;
+    instructions = false;
+
   }
   
   
@@ -538,35 +646,42 @@ void mousePressed()
   {
     start =  true;
     lose =  false;
+    powerUp = true;
     level = 1;
     score=0;
     lives = 3;
     numOfEnemies = 1;
     enemiesRemaining = 1;
-    materialArray.clear();
-    bulletsArray.clear();
     numBullets = 0;
-    powerUp = true;
     enemiesKilled = 0;
+    shooterXSpeed = 0;
     
-    
+    //DELETE ALL MATERIALS AND BULLETS
+    materialArray.clear();
+    bulletsArray.clear();   
   }
+  
   
   //NEXT LEVEL BUTTON
     if (mouseY >650 && mouseY <705 && mouseX > 480 && mouseX <770 && levelUp == true)
   {
     start =  false;
     lose =  false;
+    levelUp = false;
+    numBullets = 0;
+    enemiesRemaining = numOfEnemies;
+    
+    //DELETE ALL BULLETS AND MATERIALS
     materialArray.clear();
     bulletsArray.clear();
-    levelUp = false;
-    enemiesRemaining = numOfEnemies;
+    
+    //ADD A NEW ENEMY TO ARRAY
     enemyArray[numOfEnemies-1] = new Enemy(int (random(1,1200)),int(random(1,300)),10,10);
-    numBullets = 0;
+    
+    //SET ALL ENEMIES THAT SHOULD BE ACTIVE TO ACTIVE
     for(int i = 0;i <numOfEnemies; i++)
     {
      enemyArray[i].Active = true; 
     }
-    
   }
 }
