@@ -18,32 +18,42 @@
  
     
     <body>
+	    <ul>
+		    <li>hi</li>
+		    <li>his</li>
+		    <li>hid</li>
+	    </ul>
       <canvas data-processing-sources="Operation_Merde_Storm.pde"></canvas>
-    </body>
-	
-	
-	<html><body><pre>
+   
 <span style="color: #666666;">/***********GAME&nbsp;VARIABLES************/</span>
 
 
-<span style="color: #666666;">//WIN/LOSE/START</span>
+<span style="color: #666666;">//BOOLEANS&nbsp;FOR&nbsp;CURRENT&nbsp;SCREEN</span>
 <span style="color: #E2661A;">boolean</span> lose = <span style="color: #33997E;">false</span>;
 <span style="color: #E2661A;">boolean</span> start = <span style="color: #33997E;">true</span>;
 <span style="color: #E2661A;">boolean</span> levelUp = <span style="color: #33997E;">false</span>;
+<span style="color: #E2661A;">boolean</span> instructions = <span style="color: #33997E;">false</span>;
+
+<span style="color: #666666;">//SPECIAL&nbsp;POWER&nbsp;BOOLEAN</span>
 <span style="color: #E2661A;">boolean</span> powerUp = <span style="color: #33997E;">true</span>;
+
 
 
 <span style="color: #666666;">//MATERIL&nbsp;VARIABLES</span>
 <span style="color: #E2661A;">PImage</span> material;
 <span style="color: #E2661A;">int</span> numMaterials = 0;
-<span style="color: #E2661A;">ArrayList</span>&lt;Material&gt; materialArray;
 <span style="color: #E2661A;">int</span> materialSize = 40;
+&nbsp;&nbsp;<span style="color: #666666;">//MATERIAL ARRAYLIST</span>
+&nbsp;&nbsp;<span style="color: #E2661A;">ArrayList</span>&lt;Material&gt; materialArray;
+
 
 
 <span style="color: #666666;">//GOLDEN&nbsp;MATERIAL</span>
 <span style="color: #E2661A;">PImage</span> goldenMaterial;
-goldenMaterials[]&nbsp;goldenMaterialArray;
 <span style="color: #E2661A;">int</span> numGoldenMaterials = 0;
+&nbsp;&nbsp;<span style="color: #666666;">// Golden material array</span>
+&nbsp;&nbsp;goldenMaterials[]&nbsp;goldenMaterialArray;
+
 
 
 <span style="color: #666666;">//SHOOTER&nbsp;VARIABLES</span>
@@ -61,17 +71,19 @@ goldenMaterials[]&nbsp;goldenMaterialArray;
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 <span style="color: #666666;">//ENEMIES</span>
-<span style="color: #E2661A;">int</span> enemySize = 50;
 <span style="color: #E2661A;">PImage</span> enemy;
+<span style="color: #E2661A;">int</span> enemySize = 50;
 <span style="color: #E2661A;">int</span> numOfEnemies = 1;
 <span style="color: #E2661A;">int</span> enemiesRemaining = 1;
-Enemy[]&nbsp;enemyArray;
 <span style="color: #E2661A;">int</span> enemiesKilled = 0;
+Enemy[]&nbsp;enemyArray;
+
 
 <span style="color: #666666;">//BACKGROUND</span>
-<span style="color: #E2661A;">color</span> Background = <span style="color: #006699;">color</span>(10);
+<span style="color: #E2661A;">color</span> Background = <span style="color: #006699;">color</span>(<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)));
 
 <span style="color: #666666;">//SCORING&nbsp;AND&nbsp;LEVELS</span>
+<span style="color: #666666;">//SET&nbsp;TO&nbsp;STARTING&nbsp;NUMBERS</span>
 <span style="color: #E2661A;">int</span> score = 0;
 <span style="color: #E2661A;">int</span> lives = 3;
 <span style="color: #E2661A;">int</span> level = 1;
@@ -79,14 +91,13 @@ Enemy[]&nbsp;enemyArray;
 
 
 
-
+<span style="color: #E2661A;">int</span> frameNum = 0;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>()
 {
 &nbsp;&nbsp;<span style="color: #006699;">size</span>(1200,750);
 &nbsp;&nbsp;
 &nbsp;&nbsp;<span style="color: #666666;">//LOAD IMAGES</span>
-&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;material&nbsp;=&nbsp;<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;material.png&quot;</span>);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemy&nbsp;=&nbsp;<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;enemytest.png&quot;</span>);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goldenMaterial&nbsp;=&nbsp;<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;goldenMaterial.png&quot;</span>);
@@ -104,19 +115,23 @@ Enemy[]&nbsp;enemyArray;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>()
 {
+&nbsp;&nbsp;<span style="color: #666666;">//add to the frame number</span>
+&nbsp;&nbsp;frameNum++;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//START SCREEN CHECK</span>
 &nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (start  == <span style="color: #33997E;">true</span>)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//START SCREEN VARIABLES</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(Background);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(frameNum% 20 == 0)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Background=<span style="color: #006699;">color</span>(<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(255)));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//START SCREEN VARIABLE</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">int</span> [] materialStart = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">int</span>[20];
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CREATING THE START SCREEN MATERIALS</span>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CREATING THE MATERIAL FOR START SCREEN</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i&lt;20; i++)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;materialStart[i]&nbsp;=&nbsp;60*i;
@@ -128,15 +143,15 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Operation Merde Storm&quot;</span>,300,200);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAWING MATERIALS</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAWING THE START SCREEN MATERIALS</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span>(<span style="color: #E2661A;">int</span>  i = 0; i&lt;20;i++)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MATERIALS BOUNCE</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MATERIALS MOVEMENT UP AND DOWN</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> xs = <span style="color: #006699;">random</span>(20);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> x = 300;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x+=xs;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(material,materialStart[i],x,50,50);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(material,materialStart[i],x+50,50,50);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(material,materialStart[i],x+100,50,50);
@@ -149,13 +164,17 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//ACTION IN mousePressed</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(60);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Start&quot;</span>,500,700);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;How to play&quot;</span>,970,700);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0,0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(500,650,135,55);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW INSTRUCTIONS BUTTON</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(38);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0,0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(970,650,220,55);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;How to play&quot;</span>,970,695);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 
@@ -171,7 +190,7 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;You Lost&quot;</span>, 450,400);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//RESET BUTTON</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW RESET BUTTON</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//ACTION IN mousePressed</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(60);
@@ -188,12 +207,12 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span>(levelUp== <span style="color: #33997E;">true</span>)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DISPLAY TEXT</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(#3CEDE9);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(#1614F2);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;You beat this level&quot;</span>, 330,400);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//Reset Button</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW Reset Button</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//Action in mousePressed</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(60);
@@ -201,6 +220,47 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0,0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(480,650,290,55);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">//INSTRUCTIONS SCREEEN CHECK</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span>(instructions==<span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(#952AC4);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//BACK BUTTON</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(60);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Back&quot;</span>,500,700);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0,0);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(500,650,135,55);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//THE INSTRUCTIONS TEXT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(60);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;How to play&quot;</span>,440,70);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(35);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Rules/Getting points&quot;</span>,100,150);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(30);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-Your goal is to kill all of the devils&quot;</span>,100,200);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-A devil gets added each level&quot;</span>,100,240);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-If you get hit with material you lose 1 life (you have 3)&quot;</span>,100,280);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-If you catch a golden material you get a powerUp (You can only have 1)&quot;</span>,100,320);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-If golden material is displayed on bottom you have a powerup&quot;</span>,100,360);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(35);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Movement&quot;</span>,100,420);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(30);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-Use left and right arrow keys to move&quot;</span>,100,460);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-You won&apos;t stop moving until you hit spacebar&quot;</span>,100,500);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-Use up arrow key or spacebar to shoot&quot;</span>,100,540);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;-Use the &apos;a&apos; key to use special power&quot;</span>,100,580);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;
 &nbsp;&nbsp;
@@ -238,7 +298,7 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SCORING AREA</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW SCORING AND INFORMATION AREA</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rectMode</span>(<span style="color: #718A62;">CORNER</span>);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
@@ -310,14 +370,25 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level+=1;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numOfEnemies&nbsp;+=&nbsp;1;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//POWER UP INDICATOR</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(powerUp == <span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(goldenMaterial,400,600,170,170); 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DISPLAY LEVEL</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DISPLAY CURRENT LEVEL</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">textSize</span>(50);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(level,600,720);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//AFTER 5 KILLS DEPLOY GOLDEN MATERIAL </span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(enemiesKilled == 5)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemiesKilled&nbsp;=0;
@@ -326,12 +397,13 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//materialArray.clear();</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterX&nbsp;+=&nbsp;shooterXSpeed;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (shooterX&gt; <span style="color: #D94A7A;">width</span> - 50||shooterX&lt;50)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterXSpeed&nbsp;=&nbsp;0;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//UPDATE SHOOTERS LOCATION</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterX&nbsp;+=&nbsp;shooterXSpeed;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//KEEP SHOOTER ON SCREEN </span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (shooterX&gt; <span style="color: #D94A7A;">width</span> - 50||shooterX&lt;50)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterXSpeed&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -343,13 +415,15 @@ Enemy[]&nbsp;enemyArray;
 
 <span style="color: #33997E;">class</span> Bullet
 {
-&nbsp;&nbsp;
+&nbsp;
+<span style="color: #666666;">//CLASS&nbsp;VARIABLES</span>
 &nbsp;<span style="color: #33997E;">public</span> <span style="color: #E2661A;">boolean</span> bulletActive;
 &nbsp;<span style="color: #E2661A;">float</span> bulletX,bulletY,bulletSpeed;
 &nbsp;
+&nbsp;<span style="color: #666666;">//GIVE THE VARIABLES A VALUE</span>
 &nbsp;Bullet(<span style="color: #E2661A;">int</span> x,<span style="color: #E2661A;">int</span> y,<span style="color: #E2661A;">int</span> speed)
 &nbsp;{
-&nbsp;&nbsp;&nbsp;bulletX&nbsp;=&nbsp;x;
+&nbsp;&nbsp;&nbsp;bulletX&nbsp;=&nbsp;x-10;
 &nbsp;&nbsp;&nbsp;bulletY&nbsp;=&nbsp;y;
 &nbsp;&nbsp;&nbsp;bulletSpeed&nbsp;=&nbsp;speed;
 &nbsp;}
@@ -357,28 +431,28 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;<span style="color: #33997E;">void</span> check()
 &nbsp;{
 &nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHECK IF BULLETS HIT ENEMIE</span>
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHECK IF BULLET LOCATION CROSSES THE ENEMIES LOCATION</span>
 &nbsp;&nbsp;<span style="color: #669900;">for</span>(<span style="color: #E2661A;">int</span> t =0; t&lt;materialArray.<span style="color: #006699;">size</span>(); t++)
 &nbsp;&nbsp;{
-&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i&lt;numOfEnemies; i++)
-&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(enemyArray[i].enemyX &lt;= bulletX+10  &amp;&amp;  enemyArray[i].enemyX + 40 &gt;= bulletX-10  &amp;&amp;  enemyArray[i].enemyY&lt;= bulletY 
-&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;enemyArray[i].enemyY+40&gt;=&nbsp;bulletY-10&nbsp;&amp;&amp;&nbsp;enemyArray[i].Active&nbsp;==&nbsp;<span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i&lt;numOfEnemies; i++)
 &nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[i].Active&nbsp;=<span style="color: #33997E;">false</span>;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score+=10;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemiesRemaining&nbsp;-=1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemiesKilled+=1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(enemyArray[i].enemyX &lt;= bulletX+10  &amp;&amp;  enemyArray[i].enemyX + 40 &gt;= bulletX-10  &amp;&amp;  enemyArray[i].enemyY&lt;= bulletY 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;enemyArray[i].enemyY+40&gt;=&nbsp;bulletY-10&nbsp;&amp;&amp;&nbsp;enemyArray[i].Active&nbsp;==&nbsp;<span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[i].Active&nbsp;=<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score+=10;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemiesRemaining&nbsp;-=1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemiesKilled+=1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;}
-&nbsp;&nbsp;}
-&nbsp;}
 &nbsp;&nbsp;<span style="color: #33997E;">void</span> shoot()
 &nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SHOOT THE BULLET</span>
 &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//BULLET MOVEMENT</span>
 &nbsp;&nbsp;&nbsp;&nbsp;bulletY&nbsp;-=&nbsp;bulletSpeed;
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(bulletColor);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW THE BULLET</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(bullet,bulletX,bulletY,20,20);
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;}
@@ -387,9 +461,12 @@ Enemy[]&nbsp;enemyArray;
 <span style="color: #666666;">/****CLASS&nbsp;FOR&nbsp;ENEMIES****/</span>
 
 <span style="color: #33997E;">class</span> Enemy
-{
+{&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">//CLASS/ENEMY  VARIABLES</span>
 &nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #E2661A;">boolean</span> Active;
 &nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #E2661A;">float</span> enemyX,enemyY,enemyYSpeed,enemyXSpeed;
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">//GIVE THE VARIABLES A VALUE</span>
 &nbsp;&nbsp;Enemy(<span style="color: #E2661A;">int</span> x,<span style="color: #E2661A;">int</span> y, <span style="color: #E2661A;">int</span> xs, <span style="color: #E2661A;">int</span> ys)
 &nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;enemyX&nbsp;=&nbsp;x;
@@ -397,13 +474,16 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;enemyXSpeed&nbsp;=&nbsp;xs;
 &nbsp;&nbsp;&nbsp;enemyYSpeed&nbsp;=&nbsp;ys;
 &nbsp;&nbsp;}
+&nbsp;&nbsp;
 &nbsp;&nbsp;<span style="color: #33997E;">void</span> update()
 &nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MOVEMENT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//ENEMY MOVEMENT</span>
 &nbsp;&nbsp;&nbsp;&nbsp;enemyX&nbsp;+=&nbsp;enemyXSpeed;
 &nbsp;&nbsp;&nbsp;&nbsp;enemyY&nbsp;+=&nbsp;enemyYSpeed;
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//LEFT/RIGHT CHECK</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//LEFT/RIGHT WALL HIT CHECK CHECK</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW MATERIAL IF WALL IS HIT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHANGE DIRECTION IF WALL HIT</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (enemyX &gt; <span style="color: #D94A7A;">width</span> - enemySize)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyXSpeed&nbsp;=&nbsp;<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(-10,-1)); 
@@ -418,7 +498,9 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numMaterials++;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//UP/DOWN CHECK</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//UP/DOWN WALL CHECK</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW MATERIAL IF WALL IS HIT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHANGE DIRECTION IF WALL HIT</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (enemyY &gt; 300)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyYSpeed&nbsp;=&nbsp;<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(-10,-1)); 
@@ -432,7 +514,7 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;materialArray.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Material (enemyX,enemyY,material));
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numMaterials++;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//ENEMIES IMAGE</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DRAW THE ENEMY</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(enemy,enemyX,enemyY,enemySize,enemySize);
 &nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -442,8 +524,11 @@ Enemy[]&nbsp;enemyArray;
 
 <span style="color: #33997E;">class</span> Material
 {
+&nbsp;&nbsp;<span style="color: #666666;">//CLASS/MATERIAL VARIABLES</span>
 &nbsp;<span style="color: #E2661A;">float</span> xpos,ypos;
 &nbsp;<span style="color: #33997E;">public</span> <span style="color: #E2661A;">PImage</span> image;
+&nbsp;
+&nbsp;<span style="color: #666666;">//GIVE VARIABLES A VALUE</span>
 &nbsp;Material(<span style="color: #E2661A;">float</span> x, <span style="color: #E2661A;">float</span> y,<span style="color: #E2661A;">PImage</span> img)
 &nbsp;{
 &nbsp;&nbsp;&nbsp;xpos&nbsp;=&nbsp;x;
@@ -454,10 +539,10 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;
 &nbsp;&nbsp;<span style="color: #33997E;">void</span> deploy()
 &nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MOVEMENT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MATERIAL MOVEMENT</span>
 &nbsp;&nbsp;&nbsp;&nbsp;ypos&nbsp;+=&nbsp;10;
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHECK IF MATERIALS HAVE HIT HERO</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CHECK IF MATERIALS HAVE HIT THE SHOOTER</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span>(<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(xpos-1),<span style="color: #006699;">int</span>(ypos+materialSize+1)) == <span style="color: #006699;">color</span>(shooterColor)||<span style="color: #006699;">get</span>(<span style="color: #006699;">int</span>(xpos+materialSize+1),<span style="color: #006699;">int</span>(ypos+materialSize+1)) == <span style="color: #006699;">color</span>(shooterColor)){
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lives&nbsp;-=1;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;materialArray.<span style="color: #006699;">clear</span>();
@@ -465,6 +550,7 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255,0,0);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0,0,1200,650);
 &nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DISPLAY MATERIAL IMAGE</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(image,xpos,ypos,materialSize,materialSize);
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -476,9 +562,10 @@ Enemy[]&nbsp;enemyArray;
 <span style="color: #666666;">/****CLASS&nbsp;FOR&nbsp;GOLDEN&nbsp;MATERIALS****/</span>
 
 <span style="color: #33997E;">class</span> goldenMaterials {
-&nbsp;
+&nbsp;<span style="color: #666666;">//CLASS VARIABLES</span>
 &nbsp;&nbsp;<span style="color: #E2661A;">float</span> xpos, ypos;
 &nbsp;&nbsp;
+&nbsp;<span style="color: #666666;">//GIVE VARIABLES A VALUE </span>
 &nbsp;&nbsp;goldenMaterials(<span style="color: #E2661A;">float</span> x, <span style="color: #E2661A;">float</span> y)
 &nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;xpos&nbsp;=&nbsp;x;
@@ -495,7 +582,10 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(#FFF41F);
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0,0,1200,800);
 &nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//MATERIAL MOVEMENT</span>
 &nbsp;&nbsp;&nbsp;ypos+=5;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DISPLAY THE MATERIAL</span>
 &nbsp;&nbsp;&nbsp;<span style="color: #006699;">image</span>(goldenMaterial,xpos,ypos,70,70); 
 &nbsp;&nbsp;}
 }
@@ -503,7 +593,7 @@ Enemy[]&nbsp;enemyArray;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>keyPressed</b></span>()
 {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//HERO MOVEMENT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SHOOTER MOVEMENT/LEFT/RIGHT/STOP</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">keyCode</span> == <span style="color: #718A62;">LEFT</span> &amp;&amp; shooterX &gt; 50)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterXSpeed&nbsp;=&nbsp;-10;
@@ -516,12 +606,14 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (<span style="color: #D94A7A;">key</span> ==<span style="color: #7D4793;">&apos; &apos;</span>)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shooterXSpeed&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bulletsArray.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Bullet (shooterX,shooterY-50,20));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numBullets&nbsp;+=&nbsp;1;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//HERO SHOOT</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SHOOTER SHOOT KEY</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">keyCode</span> == <span style="color: #718A62;">UP</span> || <span style="color: #D94A7A;">keyCode</span> == <span style="color: #718A62;">TAB</span>)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bulletsArray.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Bullet (shooterX,shooterY-50,13));
@@ -529,7 +621,7 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//HERO USE POWER UP</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SHOOTER POWER UP KEY</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">key</span> ==<span style="color: #7D4793;">&apos;a&apos;</span> &amp;&amp; powerUp == <span style="color: #33997E;">true</span>)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span>(<span style="color: #E2661A;">int</span> i =1; i&lt;12;i++)
@@ -546,14 +638,32 @@ Enemy[]&nbsp;enemyArray;
 
 {
 &nbsp;&nbsp;<span style="color: #666666;">//START BUTTON</span>
-&nbsp;&nbsp;
+&nbsp;
 &nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseY</span> &gt;650 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;705 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &gt; 500 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &lt;635&amp;&amp; start == <span style="color: #33997E;">true</span>)
 &nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;lose&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;score&nbsp;=&nbsp;0;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[0]&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Enemy(<span style="color: #006699;">int</span> (<span style="color: #006699;">random</span>(1,1200)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(1,300)),10,10);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[0].Active&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//CREATE FIRST ENEMY AND SET TO ACTIVE</span>
+&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[0]&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Enemy(<span style="color: #006699;">int</span> (<span style="color: #006699;">random</span>(1,1200)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(1,300)),10,10);
+&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[0].Active&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// INSTRUCTIONS BUTTON</span>
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseY</span> &gt;650 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;705 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &gt; 970 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &lt;1190 &amp;&amp; start == <span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;start&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;instructions&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//START BUTTON</span>
+&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseY</span> &gt;650 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;705 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &gt; 500 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &lt;635&amp;&amp; instructions == <span style="color: #33997E;">true</span>)
+&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;instructions&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+
 &nbsp;&nbsp;}
 &nbsp;&nbsp;
 &nbsp;&nbsp;
@@ -563,39 +673,45 @@ Enemy[]&nbsp;enemyArray;
 &nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">true</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;lose&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;powerUp&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;level&nbsp;=&nbsp;1;
 &nbsp;&nbsp;&nbsp;&nbsp;score=0;
 &nbsp;&nbsp;&nbsp;&nbsp;lives&nbsp;=&nbsp;3;
 &nbsp;&nbsp;&nbsp;&nbsp;numOfEnemies&nbsp;=&nbsp;1;
 &nbsp;&nbsp;&nbsp;&nbsp;enemiesRemaining&nbsp;=&nbsp;1;
-&nbsp;&nbsp;&nbsp;&nbsp;materialArray.<span style="color: #006699;">clear</span>();
-&nbsp;&nbsp;&nbsp;&nbsp;bulletsArray.<span style="color: #006699;">clear</span>();
 &nbsp;&nbsp;&nbsp;&nbsp;numBullets&nbsp;=&nbsp;0;
-&nbsp;&nbsp;&nbsp;&nbsp;powerUp&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;enemiesKilled&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;shooterXSpeed&nbsp;=&nbsp;0;
 &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DELETE ALL MATERIALS AND BULLETS</span>
+&nbsp;&nbsp;&nbsp;&nbsp;materialArray.<span style="color: #006699;">clear</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;bulletsArray.<span style="color: #006699;">clear</span>();   
 &nbsp;&nbsp;}
+&nbsp;&nbsp;
 &nbsp;&nbsp;
 &nbsp;&nbsp;<span style="color: #666666;">//NEXT LEVEL BUTTON</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseY</span> &gt;650 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;705 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &gt; 480 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &lt;770 &amp;&amp; levelUp == <span style="color: #33997E;">true</span>)
 &nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;start&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;lose&nbsp;=&nbsp;&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;levelUp&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;numBullets&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;enemiesRemaining&nbsp;=&nbsp;numOfEnemies;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//DELETE ALL BULLETS AND MATERIALS</span>
 &nbsp;&nbsp;&nbsp;&nbsp;materialArray.<span style="color: #006699;">clear</span>();
 &nbsp;&nbsp;&nbsp;&nbsp;bulletsArray.<span style="color: #006699;">clear</span>();
-&nbsp;&nbsp;&nbsp;&nbsp;levelUp&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
-&nbsp;&nbsp;&nbsp;&nbsp;enemiesRemaining&nbsp;=&nbsp;numOfEnemies;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//ADD A NEW ENEMY TO ARRAY</span>
 &nbsp;&nbsp;&nbsp;&nbsp;enemyArray[numOfEnemies-1]&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Enemy(<span style="color: #006699;">int</span> (<span style="color: #006699;">random</span>(1,1200)),<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(1,300)),10,10);
-&nbsp;&nbsp;&nbsp;&nbsp;numBullets&nbsp;=&nbsp;0;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">//SET ALL ENEMIES THAT SHOULD BE ACTIVE TO ACTIVE</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span>(<span style="color: #E2661A;">int</span> i = 0;i &lt;numOfEnemies; i++)
 &nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enemyArray[i].Active&nbsp;=&nbsp;<span style="color: #33997E;">true</span>; 
 &nbsp;&nbsp;&nbsp;&nbsp;}
-&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;}
 }
-
-</pre></body></html>
+	</body>
     
 </html>
