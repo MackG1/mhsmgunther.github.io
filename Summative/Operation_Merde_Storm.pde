@@ -1,3 +1,6 @@
+//SETUP SERIAL FILES
+import processing.serial.*;
+Serial myPort;
 /***********GAME VARIABLES************/
 
 
@@ -26,6 +29,7 @@ PImage goldenMaterial;
 int numGoldenMaterials = 0;
   // Golden material array
   goldenMaterials[] goldenMaterialArray;
+
 
 
 
@@ -83,15 +87,24 @@ void setup()
       enemyArray = new Enemy[1000];
       materialArray = new ArrayList <Material>();
       goldenMaterialArray = new goldenMaterials[1000];
+      
+  //COMMUNICATING WITH ARDUINO
+  //START SERIAL CONNECTION
+      String portName = Serial.list()[1];
+      myPort = new Serial(this,portName,9600);
 
 }
 
 void draw()
 {
-  //add to the frame number
+  //SEND INFORMATION TO ARDUINO
+  myPort.write(lives);
+  //ADD TO FRAME NUMBER
   frameNum++;
-    //START SCREEN CHECK
-  
+    
+    
+/****************START SCREEN*****************/
+      //START SCREEN CHECK
       if (start  == true)
       {
         background(Background);
@@ -151,8 +164,9 @@ void draw()
       }  
       }
 
+/****************LOSE SCREEN*****************/
+
   //LOSE SCREEN CHECK
-  
       else if (lose == true)
       
       {
@@ -173,10 +187,9 @@ void draw()
       }
   
   
-  
+  /****************LEVEL UP SCREEN*****************/
   
   //LEVEL UP SCREEN CHECK
-  
       else if(levelUp== true)
       {
         //DISPLAY TEXT
@@ -196,9 +209,9 @@ void draw()
       
       
       
-      
+/****************INSTRUCTIONS SCREEN*****************/
+
   //INSTRUCTIONS SCREEEN CHECK
-    
     else if(instructions==true)
     {
      background(#952AC4);
@@ -234,13 +247,9 @@ void draw()
       
     }
   
-      
-  
-  
-  
-  
+/****************RUN SCREEN*****************/
+
   //RUN GAME
-  
       else 
       {
         background(Background);
@@ -384,7 +393,7 @@ void draw()
 
 
 
-/****CLASS FOR BULLETS****/
+/******************CLASS FOR BULLETS*******************/
 
 class Bullet
 {
@@ -431,7 +440,7 @@ class Bullet
   }
 }
     
-/****CLASS FOR ENEMIES****/
+/********************CLASS FOR ENEMIES********************/
 
 class Enemy
 { 
@@ -493,7 +502,7 @@ class Enemy
     
   }
   
-  /****CLASS FOR REGULAR MATERIALS****/
+/**************8CLASS FOR REGULAR MATERIALS******************/
 
 class Material
 {
@@ -513,7 +522,7 @@ class Material
   void deploy()
   {
     //MATERIAL MOVEMENT
-    ypos += 10;
+    ypos += 8;
     
     //CHECK IF MATERIALS HAVE HIT THE SHOOTER
     if(get(int(xpos-1),int(ypos+materialSize+1)) == color(shooterColor)||get(int(xpos+materialSize+1),int(ypos+materialSize+1)) == color(shooterColor)){
@@ -532,7 +541,7 @@ class Material
 
 
 
-/****CLASS FOR GOLDEN MATERIALS****/
+/****************CLASS FOR GOLDEN MATERIALS*******************/
 
 class goldenMaterials {
  //CLASS VARIABLES
@@ -563,6 +572,8 @@ class goldenMaterials {
   }
 }
 
+
+/*****************KEY ACTIONS****************/
 
 void keyPressed()
 {     
@@ -606,10 +617,11 @@ void keyPressed()
 }
 
 
-
+/*******************MOUSE ACTIONS*****************/
 void mousePressed()
 
 {
+/****************START BUTTON*****************/
   //START BUTTON
  
   if (mouseY >650 && mouseY <705 && mouseX > 500 && mouseX <635&& start == true)
@@ -617,12 +629,15 @@ void mousePressed()
     start =  false;
     lose =  false;
     score = 0;
+    lives = 3;
+    myPort.write(lives);
     
     //CREATE FIRST ENEMY AND SET TO ACTIVE
     enemyArray[0] = new Enemy(int (random(1,1200)),int(random(1,300)),10,10);
     enemyArray[0].Active = true;
   }
   
+  /****************INSTRUCTIONS BUTTON*****************/
   // INSTRUCTIONS BUTTON
   if (mouseY >650 && mouseY <705 && mouseX > 970 && mouseX <1190 && start == true)
   {
@@ -630,8 +645,8 @@ void mousePressed()
    instructions = true;
   }
   
-     //START BUTTON
- 
+   
+/****************GO TO START SCREEN FROM INSTRUCTIONS SCREEEN BUTTON*****************/
   if (mouseY >650 && mouseY <705 && mouseX > 500 && mouseX <635&& instructions == true)
   {    
     start =  true;
@@ -640,7 +655,7 @@ void mousePressed()
   }
   
   
-  
+  /****************RESET BUTTON*****************/
   //RESET BUTTON
     if (mouseY >650 && mouseY <705 && mouseX > 500 && mouseX <660&& lose == true)
   {
@@ -649,7 +664,7 @@ void mousePressed()
     powerUp = true;
     level = 1;
     score=0;
-    lives = 3;
+    
     numOfEnemies = 1;
     enemiesRemaining = 1;
     numBullets = 0;
@@ -661,7 +676,7 @@ void mousePressed()
     bulletsArray.clear();   
   }
   
-  
+/****************NEXT LEVEL BUTTON*****************/ 
   //NEXT LEVEL BUTTON
     if (mouseY >650 && mouseY <705 && mouseX > 480 && mouseX <770 && levelUp == true)
   {
