@@ -38,7 +38,6 @@ int shooterX = 400;
 int shooterY = 640;
 int shooterXSpeed = 0;
 color shooterColor = color(150);
-PImage turret;
     //BULLETS
     ArrayList<Bullet> bulletsArray;
     int numBullets = 0;
@@ -79,7 +78,6 @@ void setup()
       enemy = loadImage("enemytest.png");
       goldenMaterial = loadImage("goldenMaterial.png");
       bullet = loadImage("bullet.png");
-      turret = loadImage("turret.png");
   
   
   //CREATE ENEMIES
@@ -175,6 +173,7 @@ void draw()
        background( #FF0307);
        fill(0);
        text("You Lost", 450,400);
+       text(score,520,470);
        
        
        //DRAW RESET BUTTON
@@ -471,6 +470,7 @@ class Enemy
          enemyXSpeed = int(random(-10,-1)); 
          materialArray.add(new Material (enemyX,enemyY,material));
          numMaterials++;
+         score++;
         }
         
         else if (enemyX < 0)
@@ -478,6 +478,7 @@ class Enemy
          enemyXSpeed = int(random(10)); 
          materialArray.add(new Material (enemyX,enemyY,material));
          numMaterials++;
+         score++;
         }
         
       //UP/DOWN WALL CHECK
@@ -488,6 +489,7 @@ class Enemy
          enemyYSpeed = int(random(-10,-1)); 
          materialArray.add(new Material (enemyX,enemyY,material));
          numMaterials++;
+         score++;
         }
         
         else if (enemyY < -10)
@@ -495,6 +497,7 @@ class Enemy
          enemyYSpeed = int(random(10)); 
          materialArray.add(new Material (enemyX,enemyY,material));
          numMaterials++;
+         score++;
         }
         //DRAW THE ENEMY
         image(enemy,enemyX,enemyY,enemySize,enemySize);
@@ -531,6 +534,7 @@ class Material
       rectMode(CORNER);
       fill(255,0,0);
       rect(0,0,1200,650);
+      score-=20;
     }
     
     //DISPLAY MATERIAL IMAGE
@@ -590,18 +594,18 @@ void keyPressed()
      else if (key ==' ')
      {
        shooterXSpeed = 0;
-       bulletsArray.add(new Bullet (shooterX,shooterY-50,20));
-       numBullets += 1;
      }
      
    
      
      
      //SHOOTER SHOOT KEY
-     if (keyCode == UP || keyCode == TAB)
+     if (keyCode == UP && lose == false)
      {
-       bulletsArray.add(new Bullet (shooterX,shooterY-50,13));
+       bulletsArray.add(new Bullet (shooterX,shooterY-50,20));
        numBullets += 1;
+       score--;
+       
      }
      
      
